@@ -43,15 +43,15 @@ include_recipe 'carton'
 
 carton_app "psgi_app" do
 	perlbrew node['psgi_app']['perl_version']
-	command "starman -p #{node['psgi_app']['port']} app.psgi"
-	cwd   node['psgi_app']['deploy_dir']
-	user  node['psgi_app']['user']
-	group node['psgi_app']['group']
+	# command "starman -p #{node['psgi_app']['port']} velia.psgi"
+	deploy_dir node['psgi_app']['deploy_dir']
+	user       node['psgi_app']['user']
+	group      node['psgi_app']['group']
 end
 
-carton_app "psgi_app" do
-	action :install
-end
+#carton_app "psgi_app" do
+#	action :install
+#end
 
 # ============================================================================
 # END
