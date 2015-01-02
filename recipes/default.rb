@@ -18,7 +18,7 @@ perlbrew_perl node['psgi_app']['perl_version'] do
 end
 
 # ============================================================================
-# Required packages
+# Required distro packages
 # ============================================================================
 include_recipe 'apt'
 
@@ -30,17 +30,30 @@ required_packages.each do |pkg|
 end
 
 # ============================================================================
+# Basic packages
+# ============================================================================
+# TODO: install git, vim, etc. Read the list from config file
+# TODO: Delete: ~/.profile and ~/.bashrc
+# TODO: Clone and install dotfiles
+
+# ============================================================================
 # Carton
 # ============================================================================
-#include_recipe 'carton'
+include_recipe 'carton'
 
-#carton_app "psgi_app" do
-#  perlbrew node['psgi_app']['perl_version']
-#  command "starman -p #{node['psgi_app']['port']} app.psgi"
-#  cwd   node['cgi_app']['deploy_dir']
-#  user  node['cgi_app']['user']
-#  group node['cgi_app']['group']
-#end
-#
+carton_app "psgi_app" do
+	perlbrew node['psgi_app']['perl_version']
+	command "starman -p #{node['psgi_app']['port']} app.psgi"
+	cwd   node['psgi_app']['deploy_dir']
+	user  node['psgi_app']['user']
+	group node['psgi_app']['group']
+end
 
-#
+carton_app "psgi_app" do
+	action :install
+end
+
+# ============================================================================
+# END
+# ============================================================================
+
