@@ -22,11 +22,7 @@ end
 # ============================================================================
 include_recipe 'apt'
 
-required_packages = [
-	'libssl-dev',
-	'libmysqlclient-dev',
-]
-
+required_packages = node['psgi_app']['required_packages']
 required_packages.each do |pkg|
 	package pkg do
 		action :install
